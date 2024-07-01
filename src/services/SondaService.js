@@ -12,7 +12,9 @@ class SondaService {
 
   createSonda = async (id, temperatura) => {
     if (id < ID_MINIMO || id > ID_MAXIMO || temperatura < TEMPERATURA_MINIMA || temperatura > TEMPERATURA_MAXIMA) {
-      throw new Error("Datos no válidos");
+      const error = new Error("Datos no válidos");
+      error.statusCode = 400;
+      throw error;
     }
     const nuevaSonda = new Sonda(id, temperatura);
     this.datosSondas.push(nuevaSonda);
@@ -25,13 +27,17 @@ class SondaService {
 
   getSondaById = async (id) => {
     if (id < ID_MINIMO || id > ID_MAXIMO) {
-      throw new Error("Número de sonda incorrecto");
+      const error = new Error("Número de sonda incorrecto");
+      error.statusCode = 400;
+      throw error;
     }
 
     const sonda = await this.datosSondas.filter((sonda) => sonda.id == id);
 
     if (sonda.length == 0) {
-      throw new Error("Sonda no encontrada");
+      const error = new Error("Sonda no encontrada");
+      error.statusCode = 404;
+      throw error;
     }
 
     return sonda;

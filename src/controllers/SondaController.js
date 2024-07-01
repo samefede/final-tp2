@@ -10,7 +10,7 @@ class SondaController {
       const newSonda = await this.sondaService.createSonda(id, temperatura);
       res.status(200).send(newSonda);
     } catch (error) {
-      res.status(422).send({ errorMsg: error.message });
+      res.status(error.statusCode).send({ errorMsg: error.message });
     }
   };
 
@@ -19,7 +19,7 @@ class SondaController {
       const sondas = await this.sondaService.getSondas();
       res.status(200).send(sondas);
     } catch (error) {
-      res.status(422).send({ errorMsg: error.message });
+      res.status(error.statusCode).send({ errorMsg: error.message });
     }
   };
 
@@ -30,7 +30,7 @@ class SondaController {
       const data = await this.sondaService.getSondaById(id);
       res.status(200).send(data);
     } catch (error) {
-      res.status(422).send({ errorMsg: error.message });
+      res.status(error.statusCode).send({ errorMsg: error.message });
     }
   };
 }
